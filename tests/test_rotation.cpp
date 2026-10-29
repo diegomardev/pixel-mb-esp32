@@ -1,0 +1,64 @@
+#include "Rotation.h"
+#include <cassert>
+#include <iostream>
+int main(){
+  RotationConfig c;RotationScheduler r;r.reset(0);
+  assert(c.items[0].color==0x00b4ff && c.items[1].color==0xff8020 && c.items[2].color==0x00c8ff);
+  assert(r.tick(0,c,true)==RotationPage::Clock&&r.remainingSeconds(0,c)==10);
+  assert(r.tick(9999,c,true)==RotationPage::Clock);
+  assert(r.tick(10000,c,true)==RotationPage::Temperature&&r.remainingSeconds(10000,c)==5);
+  assert(r.tick(15000,c,true)==RotationPage::Pressure);
+  assert(r.tick(20000,c,true)==RotationPage::Clock);
+  c.count=4;c.items[0]={RotationPage::Animation,2,"rainbow"};
+  c.items[1]={RotationPage::Pressure,3,{}};c.items[2]={RotationPage::Clock,1,{}};
+  c.items[3]={RotationPage::Animation,4,"aw2_matrix"};r.reset(100);
+  assert(r.tick(100,c,true)==RotationPage::Animation&&r.index()==0);
+  assert(r.tick(2100,c,true)==RotationPage::Pressure&&r.index()==1);
+  assert(r.tick(5100,c,true)==RotationPage::Clock&&r.index()==2);
+  assert(r.tick(6100,c,true)==RotationPage::Animation&&r.index()==3);
+  assert(r.tick(10100,c,true)==RotationPage::Animation&&r.index()==0);
+  assert(r.tick(10010100,c,true)==RotationPage::Animation&&r.index()==0);
+  r.reset(0);assert(r.tick(2000,c,false)==RotationPage::Clock&&r.index()==2);
+  assert(r.tick(3000,c,false)==RotationPage::Animation&&r.index()==3);
+  r.reset(0xfffff000U);assert(r.tick(uint32_t(0xfffff000U+6000U),c,true)==RotationPage::Animation&&r.index()==3);
+  c.count=2;c.items[0]={RotationPage::Temperature,1,{}};c.items[1]={RotationPage::Pressure,1,{}};r.reset(0);
+  assert(r.tick(10000,c,false)==RotationPage::Clock);
+  assert(r.tick(10001,c,true)==RotationPage::Temperature);
+  c.count=1;c.items[0]={RotationPage::Animation,1,"rainbow"};r.reset(0);
+  assert(r.tick(1000000,c,false)==RotationPage::Animation&&r.index()==0);
+  c.count=16;for(auto &i:c.items)i={RotationPage::Clock,3600,{}};r.reset(0);
+  assert(r.tick(15U*3600000,c,true)==RotationPage::Clock&&r.index()==15);
+  c.enabled=false;assert(r.tick(100000,c,true)==RotationPage::Clock);
+  c.enabled=true;c.count=1;c.items[0]={RotationPage::Random,2,{}};c.randomCount=2;
+  strcpy(c.randomAnimations[0],"frog");strcpy(c.randomAnimations[1],"yoshi");r.reset(0);
+  const uint32_t generation=r.generation();
+  assert(r.tick(0,c,false)==RotationPage::Random);
+  assert(r.tick(1999,c,false)==RotationPage::Random && r.generation()==generation);
+  assert(r.tick(2000,c,false)==RotationPage::Random && r.generation()!=generation);
+  const uint32_t nextGeneration=r.generation();
+  assert(r.tick(4000,c,false)==RotationPage::Random && r.generation()!=nextGeneration);
+  RotationConfig copiedConfig=c;assert(!strcmp(copiedConfig.randomAnimations[1],"yoshi"));
+  c.count=2;c.items[0]={RotationPage::Text,2,{}};c.items[1]={RotationPage::Clock,1,{}};
+  assert(setRotationText(c.items[0],"CO2: {Co2}",strlen("CO2: {Co2}")));
+  assert(!strcmp(rotationPageName(c.items[0].type),"text"));r.reset(0);
+  assert(r.tick(0,c,false)==RotationPage::Text);
+  assert(r.tick(2000,c,false)==RotationPage::Clock);
+  assert(r.tick(3000,c,false)==RotationPage::Text);
+  RotationItem clockSettings;assert(!clockSettings.showSeconds && clockSettings.showWeekdays);
+  clockSettings.showSeconds=true;clockSettings.showWeekdays=false;
+  RotationItem clockSettingsCopy=clockSettings;
+  assert(clockSettingsCopy.showSeconds && !clockSettingsCopy.showWeekdays);
+  RotationItem textItem;assert(textItem.color==0x00ff00);
+  textItem.color=0xff38aa;
+  assert(setRotationText(textItem,"Temp: {bmpTemp} C",strlen("Temp: {bmpTemp} C")));
+  assert(!strcmp(textItem.text,"Temp: {bmpTemp} C"));
+  char maximum[65];memset(maximum,'x',64);maximum[64]=0;
+  assert(setRotationText(textItem,maximum,64)&&strlen(textItem.text)==64);
+  assert(!setRotationText(textItem,maximum,65));
+  assert(!setRotationText(textItem,"one\ntwo",7));
+  assert(!setRotationText(textItem,"one\0two",7));
+  assert(setRotationText(textItem,"",0)&&textItem.text[0]==0);
+  assert(setRotationText(textItem,"123",3));
+  RotationItem copied=textItem;assert(!strcmp(copied.text,"123")&&copied.color==0xff38aa);
+  std::cout<<"Rotacion: lista mixta, orden, duraciones, omision de sensores, ciclos, 16 elementos y millis OK\n";
+}
