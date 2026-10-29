@@ -9,13 +9,13 @@ Import('env')
 root = Path(env.subst('$PROJECT_DIR'))
 config_path = root / 'ota.local.json'
 if not config_path.exists():
-    config_path.write_text(json.dumps({'host': 'pixel-mb.local', 'password': secrets.token_urlsafe(24)}, indent=2) + '\n')
+    config_path.write_text(json.dumps({'host': 'IP_DEL_ESP', 'password': secrets.token_urlsafe(24)}, indent=2) + '\n')
     os.chmod(config_path, 0o600)
 config = json.loads(config_path.read_text())
 password = config.get('password', '')
 if not isinstance(password, str) or len(password) < 16:
     raise ValueError('ota.local.json: password must contain at least 16 characters')
-host = config.get('host', 'pixel-mb.local')
+host = config.get('host', 'IP_DEL_ESP')
 if not isinstance(host, str) or not host.strip():
     raise ValueError('ota.local.json: host must be a hostname or IP address')
 header = root / 'include/LocalOtaConfig.h'

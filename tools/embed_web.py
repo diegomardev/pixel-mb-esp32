@@ -1,5 +1,6 @@
 """Incrusta la interfaz sin CDN ni carga de archivos web adicional."""
 from pathlib import Path
+import zlib
 try:
     Import('env')  # PlatformIO/SCons
     root = Path(env.subst('$PROJECT_DIR'))
@@ -17,16 +18,25 @@ parts = ['#pragma once\n#include <Arduino.h>\n']
 entries = []
 for index, source in enumerate(sorted((root / 'data/animations').glob('*.awx'))):
     symbol = f'DEFAULT_ANIMATION_{index}'
-    data = source.read_bytes()
+    raw = source.read_bytes()
+    data = zlib.compress(raw, 9)
     parts.append(f'static const uint8_t {symbol}[] PROGMEM = {{\n')
     for start in range(0, len(data), 24):
         parts.append(','.join(f'0x{b:02x}' for b in data[start:start+24]) + ',\n')
     parts.append('};\n')
-    pack = 3 if source.stem == 'pixel-mb' else 2 if source.stem.startswith(('aw1_', 'aw2_')) else 1
-    entries.append(f'{{"{source.stem}", {symbol}, sizeof({symbol}), {pack}}}')
-parts.append('struct DefaultAnimation { const char *name; const uint8_t *data; size_t size; uint8_t pack; };\n')
+    pack = 4
+    entries.append(f'{{"{source.stem}", {symbol}, sizeof({symbol}), {len(raw)}, {pack}}}')
+parts.append('struct DefaultAnimation { const char *name; const uint8_t *data; size_t size; size_t rawSize; uint8_t pack; };\n')
 parts.append('static const DefaultAnimation DEFAULT_ANIMATIONS[] = {\n' + ',\n'.join(entries) + '\n};\n')
 target = root / 'include/DefaultAnimations.h'
 content = ''.join(parts)
+if not target.exists() or target.read_text() != content:
+    target.write_text(content)
+
+# Interfaz del actualizador, protegida por la autenticación Digest existente.
+update = (root / "web/update.html").read_text(encoding="utf-8")
+assert ")UPDATEHTML\"" not in update
+content = '#pragma once\n#include <Arduino.h>\nstatic const char UPDATE_UI[] PROGMEM = R"UPDATEHTML(' + update + ')UPDATEHTML";\n'
+target = root / "include/UpdateUI.h"
 if not target.exists() or target.read_text() != content:
     target.write_text(content)
