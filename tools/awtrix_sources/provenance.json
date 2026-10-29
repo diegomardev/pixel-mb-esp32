@@ -1,0 +1,32 @@
+{
+  "sources": [
+    {
+      "repository": "https://github.com/awtrix/awtrix1.0",
+      "tree_sha": "96a5df3b7d37a0360ad7ed834b5bf40eed0820ec",
+      "license": "CC BY 4.0"
+    },
+    {
+      "repository": "https://github.com/awtrix/AWTRIX2.0-Apps",
+      "tree_sha": "3b082fb1e54246395e21d2e8c0dd6c490538ab40",
+      "license": "BSD-2-Clause"
+    }
+  ],
+  "animations": {
+    "aw1_fire": {
+      "bytes": 30732,
+      "sha256": "303622f157b6bf00c621df6a0c2fd354be4f5db5e78982ed72898cbdd7eecdef"
+    },
+    "aw1_life": {
+      "bytes": 24588,
+      "sha256": "f0c376e863d0fe14f2cbca6e602b2cbad2175a456b5205ad2c282b43c3f0fd15"
+    },
+    "aw2_matrix": {
+      "bytes": 17932,
+      "sha256": "0f1375bd0384f7006f411828a3b4eee63dfac774ad00fe62ce8491eddfc750a1"
+    },
+    "aw2_eyes": {
+      "bytes": 32780,
+      "sha256": "c8393b288767d6476a0801f726b6cc0a81cf5c82afaab892ea3833d1ea8da0aa"
+    }
+  }
+}
