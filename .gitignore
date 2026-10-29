@@ -1,0 +1,22 @@
+# Entornos y archivos generados
+.pio/
+.vscode/
+__pycache__/
+*.pyc
+work/
+binaries/
+include/WebUI.h
+include/DefaultAnimations.h
+
+# Credenciales y configuración local
+ota.local.json
+include/LocalOtaConfig.h
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Colecciones añadidas localmente
+animations_default/*
+!animations_default/README.md
