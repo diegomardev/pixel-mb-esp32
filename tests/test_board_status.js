@@ -14,6 +14,8 @@ for(const status of [{fsReady:false},{fsReady:true,fsTotal:0,fsUsed:0},{fsReady:
 reply={firmware:'Pixel-MB',ip:'192.168.1.50',port:80,wifiConnected:true,freeHeap:16384,queued:2,scene:{mode:'rotation',animation:'Hora'},Brightness:25,fsReady:true,fsTotal:1024000,fsUsed:794624};
 (async()=>{
  await run('refresh()');assert.equal($('brightness').value,25);assert.equal($('storageFill').style.width,'77.6%');assert.equal($('storageFree').textContent,'224 KiB');assert.equal($('storageMeter').attrs['aria-valuenow'],'77.6');assert.equal($('boardRam').textContent,'16 KiB');assert.equal($('boardSceneDetail').textContent,'Hora');
+ for(const [rssi,bars] of [[-45,4],[-60,3],[-70,2],[-85,1]]){reply.wifiRssi=rssi;await run('updateBoardStatus()');assert.equal($('wifiRssi').textContent,' · '+rssi+' dBm');assert.equal($('wifiSignal').hidden,false);for(let i=1;i<=4;i++)assert.equal($('wifiBar'+i).style.opacity,i<=bars?'1':'.18');}
+ reply.wifiConnected=false;await run('updateBoardStatus()');assert.equal($('wifiSignal').hidden,true);reply.wifiConnected=true;
  $('brightness').value='42';reply.Brightness=30;await handlers.readBoard();assert.equal($('brightness').value,'42','refresh must preserve an unsaved brightness edit');
  reply.fsUsed=1024000;await run('updateBoardStatus()');assert.equal($('storageFree').textContent,'0 B');assert.equal($('storageFill').style.width,'100%');
  reply.fsReady=false;await run('updateBoardStatus()');assert($('storageMeter').hidden);assert.equal($('storageFree').textContent,'—');

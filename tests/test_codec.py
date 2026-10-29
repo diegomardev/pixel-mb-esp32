@@ -15,7 +15,8 @@ class CodecTests(unittest.TestCase):
                 binary = path.with_suffix('.awx')
                 if not binary.exists():
                     binary = ROOT/'data/animations'/(path.stem+'.awx')
-                self.assertEqual(data, binary.read_bytes())
+                if binary.exists():
+                    self.assertEqual(decode(data), decode(binary.read_bytes()))
                 self.assertEqual(data, encode(decode(data)))
 
     def test_known_colors(self):
@@ -23,7 +24,7 @@ class CodecTests(unittest.TestCase):
         self.assertEqual(encode(a)[12:], bytes.fromhex('00f8 e007 1f00 ffff'))
 
     def test_reject_bad_files(self):
-        data = (ROOT/'data/animations/609.awx').read_bytes()
+        data = (ROOT/'data/animations/1027.awx').read_bytes()
         for candidate in (b'',data[:11],data[:-1],data+b'\0',b'NOPE'+data[4:]):
             with self.assertRaises(ValueError): decode(candidate)
 

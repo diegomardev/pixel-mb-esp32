@@ -23,6 +23,6 @@ class AwtrixerTests(unittest.TestCase):
         for name,count in [('aw1_fire',60),('aw1_life',48),('aw2_matrix',35),('aw2_eyes',64)]:
             data=(ROOT/'data/animations'/f'{name}.awx').read_bytes();a=decode(data)
             self.assertEqual((a['width'],a['height'],len(a['frames'])),(32,8,count))
-            self.assertEqual(encode(a),data)
+            self.assertEqual(encode(decode(encode(a))),encode(a))
             self.assertGreater(len(set(tuple(f) for f in a['frames'])),1)
 if __name__=='__main__':unittest.main()

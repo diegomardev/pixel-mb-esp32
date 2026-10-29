@@ -3,7 +3,7 @@ const source=fs.readFileSync(__dirname+'/../web/index.html','utf8').split('<scri
 const code=source.slice(source.indexOf('// Preview files are fetched'),source.indexOf('function makeAnimationDeleteButton('));
 const pending=[],requests=[],frames=new Map(),listeners={},deleted=[];let frameId=0,observer,listed=0,confirmDelete=false;
 const document={hidden:false,addEventListener:(event,fn)=>listeners[event]=fn};
-const ctx=vm.createContext({document,performance:{now:()=>1000},window:{devicePixelRatio:1,addEventListener(){}},requestAnimationFrame:fn=>{frames.set(++frameId,fn);return frameId;},cancelAnimationFrame:id=>frames.delete(id),
+const ctx=vm.createContext({maintenanceBusy:false,document,performance:{now:()=>1000},window:{devicePixelRatio:1,addEventListener(){}},requestAnimationFrame:fn=>{frames.set(++frameId,fn);return frameId;},cancelAnimationFrame:id=>frames.delete(id),
  IntersectionObserver:class{constructor(fn){this.fn=fn;observer=this;}observe(){}disconnect(){this.disconnected=true;}},
  api:url=>{requests.push(url);return new Promise((resolve,reject)=>pending.push({resolve,reject}));},decode:value=>value,
  confirm:()=>confirmDelete,translateUi:value=>value,json:async(url,method)=>deleted.push({url,method}),listAnimations:async()=>listed++});
@@ -13,7 +13,10 @@ const a=makePreview('first'),b=makePreview('second');ctx.a=a;ctx.b=b;
 ctx.standalone={visible:true,canvas:{closest:()=>null}};assert.equal(run('savedPreviewVisible(standalone)'),true,'standalone gallery does not require a details element');
 run('registerSavedPreview(a.item,a.canvas,a.state);registerSavedPreview(b.item,b.canvas,b.state)');
 assert.equal(requests.length,0,'closed/offscreen cards do not fetch');
+ctx.maintenanceBusy=true;
 observer.fn([{target:a.canvas,isIntersecting:true},{target:b.canvas,isIntersecting:true}]);
+assert.equal(requests.length,0,'maintenance pauses preview requests');
+ctx.maintenanceBusy=false;run('loadSavedPreviews()');
 assert.equal(requests.length,1,'previews use a single request at a time');
 const animation={width:1,height:1,frameMs:100,frames:[['#ff0000'],['#00ff00']]};
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
