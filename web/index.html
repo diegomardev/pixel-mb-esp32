@@ -5,7 +5,7 @@
 :root{--bg:#101315;--panel:#191d20;--edge:#303639;--fg:#e9eeeb;--muted:#a0aaa7;--accent:#b4f57b;color-scheme:dark;font:15px/normal system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--fg)}body{max-width:1310px;margin:auto;padding:24px}h1{font-size:28px;margin:0}h2{font-size:19px;color:#b4f57b;margin-top:0}header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:24px}.muted,small{color:#a0aaa7}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}section{background:var(--panel);border:1px solid var(--edge);padding:20px;border-radius:12px;min-width:0}.wide{grid-column:1/-1}input,textarea,select,button{font:inherit;border:1px solid #444e4b;border-radius:6px;padding:9px;background:#101616;color:inherit;box-sizing:border-box}input,textarea{max-width:100%}textarea{width:100%;min-height:95px;font:14px monospace}button{cursor:pointer;background:#252c2c}button.primary{background:#b4f57b}button.danger{background:#b63240;border-color:#f17882;color:#fff}button{border-color:#485351}button:hover{border-color:var(--accent);filter:brightness(1.08)}button:disabled{opacity:.5;cursor:default}label{display:block;margin:10px 0 5px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.row label{margin:0}input[type=number]{width:85px}input[type=checkbox]{width:18px;height:18px}input[type=color]{width:65px;height:40px;padding:2px}#pixelCanvas{width:auto;max-width:100%;height:auto;image-rendering:pixelated;touch-action:none;border:1px solid #444e4b;background:#000;display:block}#message{white-space:pre-wrap;position:sticky;bottom:12px;padding:12px;border-radius:8px;background:#243a25;border:1px solid #99cf6e;z-index:5}#message:empty{display:none}#status{margin-bottom:18px}.board-controls{gap:8px 10px;margin:16px 0}.board-controls button{white-space:nowrap}.board-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.board-heading h2{margin:0}.board-heading button{font-size:12px}.board-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.board-metrics>div{min-width:0;background:#101616;border:1px solid var(--edge);border-radius:8px;padding:12px}.board-metrics span,.storage-values span{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.board-metrics strong{font-size:13px;overflow-wrap:anywhere}.board-metrics small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;margin-top:4px}.connected{color:var(--accent)}.board-storage{margin-top:14px;padding:16px;background:#101616;border:1px solid var(--edge);border-radius:9px}.storage-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.storage-heading strong{font-size:14px}#storagePercent{color:var(--muted);font:12px ui-monospace,monospace}.storage-meter{height:14px;border-radius:8px;background:#303937;overflow:hidden;border:1px solid #485351}.storage-meter>span{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}.storage-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:13px 0}.storage-values strong{font:600 17px ui-monospace,monospace}.storage-used-label:before{content:'';display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:2px;margin-right:5px}.board-storage>small{font-size:11px}.board-metrics[hidden],.board-storage[hidden],.storage-meter[hidden]{display:none}@media(max-width:540px){.storage-heading{align-items:flex-start;flex-direction:column;gap:5px}.storage-values strong{font-size:14px}.board-storage{padding:12px}}@media(prefers-reduced-motion:reduce){.storage-meter>span{transition:none}}
 #saved{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}.animation-card{position:relative;display:flex;flex-direction:column;min-width:0;border:1px solid #303639;padding:0;border-radius:9px;background:#191d20;overflow:hidden}.animation-card-head{display:flex;align-items:center;gap:6px;padding:9px 8px 4px}.animation-card-head strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.animation-card>small{padding:0 8px;color:#a0aaa7;font:10px monospace}.animation-delete{position:absolute;top:6px;right:6px;z-index:2;width:24px;height:24px;padding:4px;color:#b4c3b7;background:#131b17e8;border-color:#3b4a40;border-radius:5px}.animation-delete:hover{background:#582c32;color:#ffb2ba;border-color:#b16a76}.animation-delete svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.animation-preview{height:110px;margin:0;display:flex;align-items:center;justify-content:center;position:relative;background-color:#080b0b;background-image:radial-gradient(#202826 1px,transparent 1px);background-size:9px 9px;border-bottom:1px solid #28332d;overflow:hidden}.animation-preview canvas{image-rendering:pixelated;max-width:calc(100% - 12px);max-height:64px;width:auto;height:auto}.animation-preview-state{position:absolute;padding:5px;font-size:10px;text-align:center;color:#a0aaa7}.animation-random{display:flex;align-items:center;gap:5px;font-size:10px;margin:9px 8px 7px;line-height:1.3}.animation-random input[type=checkbox]{flex:none;width:14px;height:14px}.animation-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:0 8px 9px;margin-top:auto}.animation-actions button{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;padding:6px 2px;min-width:0;background:#252c2c;border-color:#485351;border-radius:4px}.animation-actions button:first-child{grid-column:1/-1;color:#b4f57b}.animation-actions button:last-child{background:#b4f57b;border-color:#b4f57b;color:#15200d;font-weight:650}.animation-actions svg{flex:none;width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}#savedAnimationsSection{background:#101315}input[type=checkbox]{accent-color:#b4f57b}:focus-visible{outline:2px solid #b4f57b;outline-offset:3px}.headerControls .row{justify-content:flex-end}.brand{display:flex;align-items:center;gap:10px}.brand h1{font-size:22px;font-weight:850;letter-spacing:-1px;white-space:nowrap}.brand h1 span{color:#b4f57b}.brandmark{margin-right:10px;font-size:32px;vertical-align:middle}header{padding-bottom:22px;border-bottom:1px solid #303639}.badge{letter-spacing:2px;font-size:10px}button.primary{color:#15200d;border-color:#b4f57b;font-weight:600}@media(max-width:1050px){#saved{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:700px){#saved{grid-template-columns:repeat(2,minmax(0,1fr))}.headerControls .row{justify-content:flex-start}}@media(max-width:360px){#saved{grid-template-columns:minmax(0,1fr)}}a{color:#b4f57b}.badge{font:12px monospace;color:#b4f57b}details{margin-top:15px}summary{cursor:pointer}code{color:#c5f3a6} @media(max-width:720px){.layout{grid-template-columns:1fr}header{display:block}.wide{grid-column:auto}body{padding:14px}section{padding:15px}}
 .network-switch{display:inline-flex;align-items:center;gap:9px;cursor:pointer}.network-switch input[type=checkbox]{appearance:none;-webkit-appearance:none;position:relative;width:42px;height:24px;padding:0;margin:0;border:1px solid #59645f;border-radius:14px;background:#303937;cursor:pointer;flex:none}.network-switch input:before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;border-radius:50%;background:#a0aaa7;transition:transform .15s}.network-switch input:checked{background:#b4f57b;border-color:#b4f57b}.network-switch input:checked:before{background:#15200d;transform:translateX(18px)}@media(prefers-reduced-motion:reduce){.network-switch input:before{transition:none}}
-</style>
+.maintenance-link{display:inline-block;padding:9px;border:1px solid #485351;border-radius:6px;background:#252c2c;text-decoration:none}#backupFile{max-width:300px}</style>
 <header><div><span class="badge">ARDUINO / ESP32</span><div class="brand"><h1><span class="brandmark" aria-hidden="true">▦</span> PIXEL<span>-MB</span></h1></div><p class="muted">Datos en directo. Animaciones en tu placa.</p></div><div class="headerControls"><div class="row"><label for="language">Idioma</label><select id="language" data-i18n-skip><option value="es">Español</option><option value="en">English</option></select></div></div></header>
 <div class="layout">
 <section class="wide"><h2>Configurar WiFi</h2><p id="networkSummary" class="muted">Conectate al WiFi PIXEL-MB-xxxxxx con clave <code>pixel-mb-local</code> y abre <code>http://192.168.4.1/</code>.</p><div class="row"><button id="scanWifi">Escanear redes WiFi</button><label for="wifiNetworks">Redes disponibles</label><select id="wifiNetworks" disabled><option value="">Selecciona una red…</option></select><span id="scanSummary" class="muted" role="status" aria-live="polite"></span></div><div class="row"><label for="wifiSsid">Nombre de tu red (SSID)</label><input id="wifiSsid" maxlength="32" autocomplete="off"><label for="wifiPassword">Contraseña de tu red</label><input id="wifiPassword" type="password" maxlength="63" autocomplete="off"><button class="primary" id="saveWifi">Guardar y conectar</button><button id="readWifi">Consultar conexión</button></div><div class="row"><label class="network-switch"><input id="wifiStaticIp" type="checkbox" role="switch" aria-controls="wifiAddressFields"> IP fija</label><span class="muted">Desactivado: IP automática (DHCP).</span><button class="primary" id="applyNetworkAddress">Aplicar DHCP</button></div><div id="wifiAddressFields" hidden><div class="row"><label for="wifiAddress">Direccion IP</label><input id="wifiAddress" placeholder="192.168.1.50" inputmode="decimal" maxlength="15"><label for="wifiGateway">Puerta de enlace</label><input id="wifiGateway" placeholder="192.168.1.1" inputmode="decimal" maxlength="15"><label for="wifiSubnet">Mascara de subred</label><input id="wifiSubnet" placeholder="255.255.255.0" inputmode="decimal" maxlength="15"></div><div class="row"><label for="wifiDns1">DNS principal</label><input id="wifiDns1" placeholder="192.168.1.1" inputmode="decimal" maxlength="15"><label for="wifiDns2">DNS secundario (opcional)</label><input id="wifiDns2" placeholder="1.1.1.1" inputmode="decimal" maxlength="15"></div><small>Elige una IP libre fuera del rango DHCP de tu router. Al guardar, abre la nueva IP. El punto de acceso sigue disponible durante el cambio.</small></div><small>«Guardar y conectar» guarda WiFi e IP fija/DHCP. El botón de IP aplica solo la dirección y conserva la red y la contraseña guardadas.</small><small>Deja la contraseña vacia para conservarla si mantienes el mismo SSID.</small><small>Red WiFi de 2,4 GHz. La clave se guarda en la placa; no se muestra al consultar. Si no conecta, el punto de acceso sigue disponible para corregirla. No necesitas recompilar ni cargar LittleFS para configurar la red.</small></section>
@@ -34,11 +34,52 @@
 <div class="row"><button class="primary" id="upload">Guardar en ESP32</button><button id="play">Guardar y probar en matriz</button><button id="exportJson">Exportar JSON</button><label for="importFile">Importar JSON</label><input id="importFile" type="file" accept=".json,.awx,.awtrixer,.piskel" style="max-width:240px"></div><small>Hasta 120 fotogramas y 48 animaciones. Cada píxel se guarda como RGB565; se usa compresión sin pérdida cuando ahorra espacio. Guardar y probar envía el dibujo actual, reproduce al menos un ciclo y vuelve a la pantalla anterior.</small>
 </section>
 <section class="wide" id="savedAnimationsSection"><h2>Animaciones guardadas en la placa</h2><div class="row"><button id="list">Actualizar lista</button></div><p id="randomSaveStatus" class="muted" role="status" aria-live="polite"></p><div id="saved"></div></section>
+<section class="wide" id="webAccessSection"><h2>Acceso a la web</h2><div class="row"><label class="network-switch"><input id="webAccessEnabled" type="checkbox" role="switch"><span>Proteger la interfaz con usuario y contraseña</span></label></div><div class="row"><label for="webAccessUser">Usuario</label><input id="webAccessUser" value="admin" maxlength="32" autocomplete="username"><label for="webAccessPassword">Contraseña</label><input id="webAccessPassword" type="password" autocomplete="new-password" placeholder="Vacía para conservar la actual"><button id="saveWebAccess">Guardar acceso web</button></div><small>Deshabilitado por defecto. Al activarlo protege toda la web, la API y el actualizador de firmware. La contraseña no se incluye en las copias. Si la olvidas, necesitarás borrar la configuración por USB.</small><p id="webAccessStatus" role="status"></p></section>
+<section class="wide" id="maintenanceSection"><h2>Firmware y copias de seguridad</h2>
+<div class="row"><a class="maintenance-link" href="/update" target="_blank" rel="noopener">Actualizar firmware</a></div><small>Selecciona el archivo .bin de tu placa y cárgalo directamente. Solo pide acceso si activas la protección web.</small>
+<div class="row"><button id="backupDownload" class="primary">Descargar copia de seguridad</button><label for="backupFile">Copia JSON</label><input id="backupFile" type="file" accept=".json,application/json"><button id="backupRestore">Restaurar copia</button></div>
+<p class="muted">Incluye animaciones, rotación, variables, brillo y escena base. No incluye WiFi, claves OTA ni el firmware. Las copias son compatibles entre ESP8266 y ESP32.</p><small>Al restaurar se sustituyen los ajustes y las animaciones con el mismo nombre. Las demás animaciones se conservan. Descarga una copia antes de restaurar.</small><p id="maintenanceStatus" role="status" aria-live="polite"></p></section>
 </div><p class="muted">API: <code>POST /api/v3/notify</code> · <code>POST /api/v3/settings</code> · <code>POST /api/variables</code>.</p><div id="message" role="status"></div>
 <script>
 'use strict';
 // English equivalents of the canonical Spanish interface strings.
 const UI_EN={
+  "Contraseña": "Password",
+  "Acceso a la web": "Web access",
+  "Proteger la interfaz con usuario y contraseña": "Protect the interface with a username and password",
+  "Usuario": "Username",
+  "Vacía para conservar la actual": "Leave empty to keep the current password",
+  "Guardar acceso web": "Save web access",
+  "Deshabilitado por defecto. Al activarlo protege toda la web, la API y el actualizador de firmware. La contraseña no se incluye en las copias. Si la olvidas, necesitarás borrar la configuración por USB.": "Disabled by default. When enabled, it protects the entire website, API and firmware updater. The password is excluded from backups. If forgotten, you must erase the configuration over USB.",
+  "Sin protección: acceso directo.": "Unprotected: direct access.",
+  "Protección web activada.": "Web protection enabled.",
+  "Acceso guardado. Recarga la página para aplicar el inicio de sesión.": "Access saved. Reload the page to apply login.",
+  "Usuario y estado de acceso invalidos": "Invalid username or access state",
+  "Contrasena invalida": "Invalid password",
+  "Usuario: 1..32 letras, numeros, . @ _ -. Introduce una contrasena para activar el acceso": "Username: 1–32 letters, digits, . @ _ -. Enter a password to enable access",
+  "No se pudo guardar el acceso web": "Could not save web access",
+
+  "Firmware y copias de seguridad": "Firmware and backups",
+  "Actualizar firmware": "Update firmware",
+  "Selecciona el archivo .bin de tu placa y cárgalo directamente. Solo pide acceso si activas la protección web.": "Select the .bin file for your board and upload it directly. Login is only required if web protection is enabled.",
+  "Descargar copia de seguridad": "Download backup",
+  "Restaurar copia": "Restore backup",
+  "Copia JSON": "JSON backup",
+  "Incluye animaciones, rotación, variables, brillo y escena base. No incluye WiFi, claves OTA ni el firmware. Las copias son compatibles entre ESP8266 y ESP32.": "Includes animations, rotation, variables, brightness and base scene. Excludes WiFi, OTA passwords and firmware. Backups work across ESP8266 and ESP32.",
+  "Al restaurar se sustituyen los ajustes y las animaciones con el mismo nombre. Las demás animaciones se conservan. Descarga una copia antes de restaurar.": "Restoring replaces settings and animations with matching names. Other animations are retained. Download a backup before restoring.",
+  "Copia de seguridad inválida.": "Invalid backup.",
+  "La restauración superaría las 48 animaciones.": "Restoring would exceed 48 animations.",
+  "No hay espacio suficiente para restaurar la copia.": "Not enough space to restore the backup.",
+  "Operación interrumpida. La restauración parcial puede reintentarse.": "Operation interrupted. A partial restore can be retried.",
+  "Descargando animaciones:": "Downloading animations:",
+  "Restaurando animaciones:": "Restoring animations:",
+  "Copia de seguridad descargada.": "Backup downloaded.",
+  "Selecciona una copia JSON de hasta 4 MB.": "Select a JSON backup up to 4 MB.",
+  "¿Restaurar esta copia? Sustituirá los ajustes y las animaciones con el mismo nombre. Las demás animaciones se conservan.": "Restore this backup? Settings and animations with matching names will be replaced. Other animations are retained.",
+  "Restauración cancelada.": "Restore cancelled.",
+  "La verificación de la animación ha fallado.": "Animation verification failed.",
+  "Copia restaurada y guardada para el próximo arranque.": "Backup restored and saved for the next startup.",
+
   "Cargando vista previa…": "Loading preview…",
   "Vista previa no disponible": "Preview unavailable",
   "A rotación": "To rotation",
@@ -612,6 +653,7 @@ function startUiLanguage(){
 
 const $=id=>document.getElementById(id);
 let networkPoll=null;
+let maintenanceBusy=false;
 let baseBusy=false,basePinned=false;
 function updateBaseButton(status){
   if(status.baseScene)basePinned=status.baseScene.mode==='custom'&&status.baseScene.duration===0;
@@ -622,7 +664,7 @@ function updateBaseButton(status){
 }
 let animation={width:8,height:8,frameMs:150,frames:[Array(64).fill('#000000')]}, frame=0, previewTimer=null, drawing=false;
 function message(text,bad=false){$('message').textContent=text;$('message').style.background=bad?'#582c32':'#243a25';}
-async function api(path,method='GET',body){const headers={};if(body!==undefined&&!(body instanceof FormData)){headers['Content-Type']='application/json';body=JSON.stringify(body);}const res=await fetch(path,{method,headers,body});if(!res.ok){let detail;try{detail=(await res.json()).error;}catch{detail=res.statusText;}throw Error(`${res.status}: ${detail}`);}return res;}
+async function api(path,method='GET',body){const headers={};if(body!==undefined&&!(body instanceof FormData)){headers['Content-Type']='application/json';body=JSON.stringify(body);}const res=await fetch(path,{method,headers,body,signal:AbortSignal.timeout(20000)});if(!res.ok){let detail;try{detail=(await res.json()).error;}catch{detail=res.statusText;}throw Error(`${res.status}: ${detail}`);}return res;}
 async function json(path,method='GET',body){const response=await api(path,method,body),text=await response.text();try{return JSON.parse(text);}catch(e){throw Error(`Respuesta JSON inválida del ESP en ${path}: ${e.message}`);}}
 function parseUserJson(text,label){try{return JSON.parse(text.replace(/^\uFEFF/,''));}catch(e){throw Error(`${label}: JSON inválido. Revisa comillas y saltos de línea dentro de las cadenas. ${e.message}`);}}
 function action(id,fn){$(id).addEventListener('click',async()=>{try{await fn();}catch(e){message(e.message,true);}});}
@@ -674,7 +716,7 @@ async function updateBoardStatus(syncBrightness=false){
 }
 async function refresh(){await updateBoardStatus(true);}
 action('readBoard',()=>updateBoardStatus());
-setInterval(()=>{if(!document.hidden)updateBoardStatus().catch(()=>{});},10000);
+setInterval(()=>{if(!document.hidden&&!maintenanceBusy)updateBoardStatus().catch(()=>{});},10000);
 let networkFieldsLoaded=false;
 function showNetworkAddressFields(){
   $('wifiAddressFields').hidden=!$('wifiStaticIp').checked;
@@ -799,11 +841,11 @@ action('readRotation',()=>readRotation(true));
 action('addRotation',()=>addRotationItem($('rotationAdd').value));
 $('rotationEnabled').addEventListener('change',rotationDirty);
 action('saveRotation',async()=>{if(randomSaveBusy||rotationSaveBusy)return;rotationSaveBusy=true;syncRandomChecks();updateRotationSaveControls();try{if(!rotationDraft.length||rotationDraft.length>16)throw Error('Añade entre 1 y 16 pantallas.');for(const item of rotationDraft){if(!Number.isInteger(item.seconds)||item.seconds<1||item.seconds>3600)throw Error('Cada pantalla debe durar entre 1 y 3600 segundos.');if(item.type==='text'&&!item.text)throw Error('Escribe el contenido de cada pantalla de texto.');if(item.text&&(new TextEncoder().encode(item.text).length>64||/[\x00-\x1f]/.test(item.text)))throw Error('Texto: hasta 64 bytes UTF-8 y sin saltos de línea.');}const r=await json('/api/rotation','POST',{enabled:$('rotationEnabled').checked,items:rotationDraft,randomAnimations:[...randomSelection]});confirmRandomSelection(r.randomAnimations);showRotationStatus(r);$('rotationDirty').textContent='Orden y duraciones guardados.';message('Secuencia guardada para los próximos reinicios.');}finally{rotationSaveBusy=false;syncRandomChecks();updateRotationSaveControls();}});
-setInterval(()=>{if(!document.hidden)readRotation().catch(e=>{$('rotationStatus').textContent=e.message;});},2000);
+setInterval(()=>{if(!document.hidden&&!maintenanceBusy)readRotation().catch(e=>{$('rotationStatus').textContent=e.message;});},2000);
 
 action('showTemperature',async()=>{await json('/api/v3/notify','POST',{text:'{bmpTemp} C',color:'#ff8020',duration:10,force:true});message('Temperatura enviada durante 10 segundos; después vuelve la pantalla anterior.');});
 action('showPressure',async()=>{await json('/api/v3/notify','POST',{text:'{bmpPressure} hPa',color:'#00c8ff',force:true});message('Presión enviada con duración automática; después vuelve la pantalla anterior.');});
-setInterval(()=>{if(!document.hidden)readSensor().catch(e=>{$('bmpStatus').textContent=e.message;});},5000);
+setInterval(()=>{if(!document.hidden&&!maintenanceBusy)readSensor().catch(e=>{$('bmpStatus').textContent=e.message;});},5000);
 
 function fillWifiNetworks(networks){const select=$('wifiNetworks');select.replaceChildren();const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Selecciona una red…';select.append(placeholder);for(const n of networks){const option=document.createElement('option');option.value=n.ssid;option.textContent=`${n.ssid} · ${n.rssi} dBm · ${n.secure?'protegida':'abierta'}`;select.append(option);}select.disabled=networks.length===0;$('scanSummary').textContent=networks.length?`${networks.length} redes encontradas. Selecciona la tuya.`:'No se encontraron redes. Puedes escribir el nombre manualmente.';}
 $('wifiNetworks').addEventListener('change',()=>{const ssid=$('wifiNetworks').value;if(!ssid)return;$('wifiSsid').value=ssid;$('wifiPassword').value='';$('wifiPassword').focus();});
@@ -974,10 +1016,10 @@ function startSavedPreviewFrames(){
   if(savedPreviewFrame===null&&!document.hidden)savedPreviewFrame=requestAnimationFrame(animateSavedPreviews);
 }
 async function loadSavedPreviews(){
-  if(savedPreviewBusy||document.hidden)return;
+  if(savedPreviewBusy||document.hidden||maintenanceBusy)return;
   savedPreviewBusy=true;
   try{
-    while(savedPreviewQueue.length&&!document.hidden){
+    while(savedPreviewQueue.length&&!document.hidden&&!maintenanceBusy){
       const entry=savedPreviewQueue.shift();entry.queued=false;
       if(entry.generation!==savedPreviewGeneration||!savedPreviewVisible(entry)||entry.animation||entry.failed)continue;
       try{
@@ -1067,7 +1109,131 @@ async function listAnimations(){
   }
   updateBoardStatus().catch(()=>{});
 }
+// Backup format shared by ESP8266 and ESP32. Large animation data stays in the browser.
+function backupCrc(bytes){let crc=0xffffffff;for(const byte of bytes){crc^=byte;for(let n=0;n<8;n++)crc=(crc>>>1)^((crc&1)?0xedb88320:0);}return ((crc^0xffffffff)>>>0).toString(16).padStart(8,'0');}
+function backupBase64(bytes){let text='';for(let i=0;i<bytes.length;i+=4096)text+=String.fromCharCode(...bytes.subarray(i,i+4096));return btoa(text);}
+function backupBytes(text){if(typeof text!=='string'||text.length>90000)throw Error('Copia de seguridad inválida.');return Uint8Array.from(atob(text),c=>c.charCodeAt(0));}
+function validateBackup(backup){
+  const fail=()=>{throw Error('Copia de seguridad inválida.');};
+  const object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
+  const integer=(v,min,max)=>Number.isInteger(v)&&v>=min&&v<=max;
+  const name=v=>typeof v==='string'&&/^[A-Za-z0-9_-]{1,20}$/.test(v);
+  const color=v=>typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);
+  const text=(v,max)=>typeof v==='string'&&new TextEncoder().encode(v).length<=max&&!/[\x00-\x1f]/.test(v);
+  if(!object(backup)||backup.format!=='pixel-mb-backup'||backup.version!==1||!Array.isArray(backup.animations)||backup.animations.length>48)fail();
+  const animations=new Map();
+  for(const entry of backup.animations){
+    if(!object(entry)||!name(entry.name)||animations.has(entry.name)||typeof entry.crc32!=='string')fail();
+    const bytes=backupBytes(entry.awx);if(backupCrc(bytes)!==entry.crc32)fail();
+    const animation=decode(bytes.buffer);animations.set(entry.name,{bytes,width:animation.width});
+  }
+  const variables=backup.variables;
+  if(!object(variables)||Object.keys(variables).length>16)fail();
+  for(const [key,value] of Object.entries(variables))if(!name(key)||['bmpTemp','bmpPressure','bmpHumidity'].includes(key)||!['string','number','boolean'].includes(typeof value)||(typeof value==='number'&&!Number.isFinite(value))||new TextEncoder().encode(String(value)).length>64)fail();
+  const settings=backup.settings;
+  if(!object(settings)||!integer(settings.Brightness,0,255)||typeof settings.showSeconds!=='boolean')fail();
+  const rotation=backup.rotation;
+  if(!object(rotation)||typeof rotation.enabled!=='boolean'||!Array.isArray(rotation.items)||!rotation.items.length||rotation.items.length>16||!Array.isArray(rotation.randomAnimations)||rotation.randomAnimations.length>48||new Set(rotation.randomAnimations).size!==rotation.randomAnimations.length)fail();
+  for(const value of rotation.randomAnimations)if(!animations.has(value))fail();
+  for(const item of rotation.items){
+    if(!object(item)||!['clock','temperature','pressure','animation','random','text'].includes(item.type)||!integer(item.seconds,1,3600)||!color(item.color))fail();
+    for(const key of ['showSeconds','showWeekdays'])if(key in item&&(item.type!=='clock'||typeof item[key]!=='boolean'))fail();
+    if('text' in item&&(!['animation','text'].includes(item.type)||!text(item.text,64)))fail();
+    if(item.type==='text'&&!item.text)fail();
+    if(item.type==='animation'&&(!animations.has(item.animation)||(item.text&&animations.get(item.animation).width>8)))fail();
+  }
+  const scene=backup.scene;
+  if(!object(scene)||!['clock','rotation','off','custom'].includes(scene.mode)||!text(scene.text,160)||!color(scene.color)||!integer(scene.duration,0,3600)||!integer(scene.scrollMs,20,1000)||!integer(scene.repeat,1,20)||typeof scene.animation!=='string')fail();
+  if(scene.animation&&(!animations.has(scene.animation)||(scene.text&&animations.get(scene.animation).width>8)))fail();
+  if(scene.mode==='custom'&&!scene.text&&!scene.animation)fail();
+  return animations;
+}
+async function backupSpace(animations){
+  const status=await json('/api/status'),current=(await json('/api/animations')).animations;
+  const names=new Set([...current.map(a=>a.name),...animations.keys()]);if(names.size>48)throw Error('La restauración superaría las 48 animaciones.');
+  // Replacements also need room for a temporary file before the original is replaced.
+  let free=status.fsTotal-status.fsUsed;
+  const existing=new Map(current.map(a=>[a.name,a]));
+  for(const [name,entry] of animations){
+    const required=Math.ceil(entry.bytes.length/4096)*4096+16384;
+    if(required>free)throw Error('No hay espacio suficiente para restaurar la copia.');
+    if(existing.has(name)){
+      let size=existing.get(name).bytes;
+      if(!Number.isInteger(size)){const response=await api('/api/animations?name='+encodeURIComponent(name));size=(await response.arrayBuffer()).byteLength;}
+      free+=Math.ceil(size/4096)*4096;
+    }
+    free-=Math.ceil(entry.bytes.length/4096)*4096;
+  }
+  return new Set(current.map(item=>item.name));
+}
+function maintenanceProgress(label,index,total){$('maintenanceStatus').replaceChildren(document.createTextNode(label+' '),document.createTextNode(index+' / '+total));}
+async function maintenanceTask(task){
+  if(maintenanceBusy)return;maintenanceBusy=true;
+  $('backupDownload').disabled=true;$('backupRestore').disabled=true;
+  try{await task();}catch(error){$('maintenanceStatus').textContent='Operación interrumpida. La restauración parcial puede reintentarse.';throw error;}
+  finally{maintenanceBusy=false;$('backupDownload').disabled=false;$('backupRestore').disabled=false;loadSavedPreviews();}
+}
+async function downloadBackup(){
+  const status=await json('/api/status'),rotation=await json('/api/rotation'),variables=await json('/api/variables');
+  for(const key of ['bmpTemp','bmpPressure','bmpHumidity'])delete variables[key];
+  const backup={format:'pixel-mb-backup',version:1,createdAt:new Date().toISOString(),firmware:status.firmware,settings:{Brightness:status.Brightness,showSeconds:status.showSeconds},scene:status.baseScene,rotation:{enabled:rotation.enabled,randomAnimations:rotation.randomAnimations,items:rotation.items},variables,animations:[]};
+  const items=(await json('/api/animations')).animations;
+  for(let i=0;i<items.length;i++){
+    maintenanceProgress('Descargando animaciones:',i+1,items.length);
+    const response=await api('/api/animations?name='+encodeURIComponent(items[i].name)),bytes=new Uint8Array(await response.arrayBuffer());
+    backup.animations.push({name:items[i].name,awx:backupBase64(bytes),crc32:backupCrc(bytes)});
+  }
+  validateBackup(backup);
+  download(new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}),'pixel-mb-backup-'+new Date().toISOString().slice(0,10)+'.json');
+  $('maintenanceStatus').textContent='Copia de seguridad descargada.';
+}
+async function restoreBackup(){
+  const file=$('backupFile').files[0];if(!file||file.size>4*1024*1024)throw Error('Selecciona una copia JSON de hasta 4 MB.');
+  const backup=JSON.parse(await file.text()),animations=validateBackup(backup);
+  const existing=await backupSpace(animations);
+  if(!confirm(translateUi('¿Restaurar esta copia? Sustituirá los ajustes y las animaciones con el mismo nombre. Las demás animaciones se conservan.'))){$('maintenanceStatus').textContent='Restauración cancelada.';return;}
+  let index=0;
+  for(const [name,entry] of animations){
+    maintenanceProgress('Restaurando animaciones:',++index,animations.size);
+    if(existing.has(name)){
+      const response=await api('/api/animations?name='+encodeURIComponent(name));
+      const current=new Uint8Array(await response.arrayBuffer());
+      if(current.length===entry.bytes.length&&current.every((value,index)=>value===entry.bytes[index]))continue;
+    }
+    const form=new FormData();form.append('file',new Blob([entry.bytes]),name+'.awx');
+    await json('/api/animations?name='+encodeURIComponent(name),'POST',form);
+    const response=await api('/api/animations?name='+encodeURIComponent(name)),saved=new Uint8Array(await response.arrayBuffer());
+    if(backupCrc(saved)!==backupCrc(entry.bytes))throw Error('La verificación de la animación ha fallado.');
+  }
+  await json('/api/variables?replace=true','POST',backup.variables);
+  const rotation={enabled:backup.rotation.enabled,randomAnimations:backup.rotation.randomAnimations,items:backup.rotation.items.map(item=>{
+    const clean={type:item.type,seconds:item.seconds,color:item.color};
+    for(const key of ['animation','text','showSeconds','showWeekdays'])if(key in item)clean[key]=item[key];
+    return clean;
+  })};
+  const scene={};for(const key of ['mode','text','animation','color','duration','scrollMs','repeat'])scene[key]=backup.scene[key];
+  await json('/api/rotation','POST',rotation);
+  await json('/api/v3/settings','POST',{Brightness:backup.settings.Brightness,showSeconds:backup.settings.showSeconds});
+  await json('/api/display','POST',scene);
+  await json('/api/save','POST',{});
+  await refresh();await readRotation(true);await listAnimations();
+  $('maintenanceStatus').textContent='Copia restaurada y guardada para el próximo arranque.';
+}
+action('backupDownload',()=>maintenanceTask(downloadBackup));
+action('backupRestore',()=>maintenanceTask(restoreBackup));
+
+let webAccessLoaded=false;
+async function readWebAccess(){
+  const access=await json('/api/web-access');
+  if(!webAccessLoaded){$('webAccessEnabled').checked=access.enabled;$('webAccessUser').value=access.username;webAccessLoaded=true;}
+  $('webAccessStatus').textContent=access.enabled?'Protección web activada.':'Sin protección: acceso directo.';
+}
+action('saveWebAccess',async()=>{
+  await json('/api/web-access','POST',{enabled:$('webAccessEnabled').checked,username:$('webAccessUser').value,password:$('webAccessPassword').value});
+  $('webAccessPassword').value='';$('webAccessStatus').textContent='Acceso guardado. Recarga la página para aplicar el inicio de sesión.';
+});
+
 action('list',listAnimations);draw();
 startUiLanguage();
-(async()=>{for(const task of [refresh,readNetwork,readSensor,()=>readRotation(true),listAnimations]){try{await task();}catch(e){message(e.message,true);}}})();
+(async()=>{for(const task of [refresh,readNetwork,readWebAccess,readSensor,()=>readRotation(true),listAnimations]){try{await task();}catch(e){message(e.message,true);}}})();
 </script></html>

@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pixel-MB · Firmware</title>
+<style>:root{color-scheme:dark;font:15px system-ui;background:#101315;color:#e9eeeb}body{max-width:740px;margin:40px auto;padding:20px}section{padding:24px;background:#191d20;border:1px solid #303639;border-radius:12px}h1,a{color:#b4f57b}input,button{font:inherit;padding:10px;border:1px solid #485351;border-radius:6px;background:#101616;color:inherit;max-width:100%;box-sizing:border-box}button{background:#b4f57b;color:#15200d;font-weight:600;cursor:pointer}progress{width:100%;accent-color:#b4f57b}p{line-height:1.6}small{color:#a0aaa7}</style>
+<section><h1>Pixel-MB · ESP32</h1><h2 id="title"></h2><p id="intro"></p><p><a id="back" href="/"></a></p><form id="update"><input id="file" type="file" accept=".bin" required><p><button id="send"></button></p></form><progress id="progress" max="100" value="0" hidden></progress><p id="status" role="status"></p><small id="note"></small></section>
+<script>
+let english=false;try{english=localStorage.getItem('pixel-mb-language')==='en';}catch{}
+document.documentElement.lang=english?'en':'es';
+const text=(es,en)=>english?en:es;
+const $=id=>document.getElementById(id);
+$('title').textContent=text('Actualizar firmware','Update firmware');
+$('intro').textContent=text('Selecciona firmware.bin compilado para ESP32. Conserva la WiFi, los ajustes y las animaciones.','Select firmware.bin compiled for ESP32. WiFi, settings and animations are preserved.');
+$('back').textContent=text('← Volver a Pixel-MB','← Back to Pixel-MB');
+$('send').textContent=text('Cargar firmware','Upload firmware');
+$('note').textContent=text('Mantén la alimentación durante la carga y el reinicio. Usa el firmware de esta placa; no una imagen de LittleFS ni una copia de la flash completa.','Keep power connected during upload and reboot. Use firmware for this board, not a LittleFS image or a full-flash backup.');
+$('update').addEventListener('submit',async event=>{
+ event.preventDefault();const file=$('file').files[0];if(!file||!file.name.toLowerCase().endsWith('.bin'))return;
+ const header=new Uint8Array(await file.slice(0,1).arrayBuffer());if(header[0]!==0xe9){$('status').textContent=text('El archivo no parece un firmware válido.','The file does not look like valid firmware.');return;}
+ if(!confirm(text('¿Actualizar el firmware y reiniciar la placa?','Update firmware and reboot the board?')))return;
+ $('send').disabled=true;$('file').disabled=true;$('progress').hidden=false;
+ const form=new FormData();form.append('firmware',file,file.name);const request=new XMLHttpRequest();
+ request.open('POST','/update');request.timeout=180000;
+ request.upload.onprogress=e=>{if(e.lengthComputable)$('progress').value=e.loaded/e.total*100;};
+ $('status').textContent=text('Cargando firmware…','Uploading firmware…');
+ const failed=()=>{$('status').textContent=text('No se ha confirmado la actualización. Comprueba la conexión y el estado de la placa antes de reintentar.','Update was not confirmed. Check the connection and board status before retrying.');$('send').disabled=false;$('file').disabled=false;};
+ request.onerror=failed;request.ontimeout=failed;
+ request.onload=()=>{let ok=false;try{ok=request.status===200&&JSON.parse(request.responseText).ok===true;}catch{}if(!ok){failed();return;}$('progress').value=100;$('status').textContent=text('Firmware actualizado. La placa se está reiniciando; vuelve al editor en unos segundos.','Firmware updated. The board is rebooting; return to the editor in a few seconds.');};
+ request.send(form);
+});
+</script></html>
