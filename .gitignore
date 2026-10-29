@@ -20,3 +20,5 @@ include/LocalOtaConfig.h
 # Colecciones añadidas localmente
 animations_default/*
 !animations_default/README.md
+
+include/UpdateUI.h

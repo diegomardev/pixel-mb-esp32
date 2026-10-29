@@ -8,14 +8,10 @@ Pantalla autónoma de píxeles para **ESP32 DevKit / ESP32-WROOM de 4 MB** y mat
 
 ## Cableado
 
-![Conexiones de Pixel-MB para ESP32](docs/images/esp32-wiring.svg)
 
 | Conexión | GPIO del ESP32 |
 | --- | --- |
 | DIN de la matriz WS2812B | **32** |
-| Botón izquierdo (opcional) | **26 → GND** |
-| Botón central (opcional) | **27 → GND** |
-| Botón derecho (opcional) | **14 → GND** |
 | BMP280/BME280 SDA (opcional) | **21** |
 | BMP280/BME280 SCL (opcional) | **22** |
 | BMP280/BME280 alimentación | **3V3 y GND** |
@@ -35,7 +31,6 @@ Los números son GPIO, no posiciones del conector. Alimenta la matriz con una fu
 - Casillas de selección aleatoria guardadas automáticamente al pulsar.
 - Notificaciones temporales y variables por API compatibles con los mensajes de Pixel-MB ESP8266.
 - Detección automática de BMP280 o BME280 en 0x76/0x77. BME280 añade humedad.
-- Botones opcionales con filtrado de rebotes: izquierdo/anterior, derecho/siguiente y central/encendido-apagado. Los cambios de botones son temporales y no escriben flash.
 - Logo de inicio Pixel-MB e IP en pantalla durante 4 segundos al conectar.
 - OTA de firmware autenticada que conserva animaciones y configuración.
 
@@ -67,11 +62,13 @@ La compilación genera credenciales OTA privadas en `ota.local.json` e `include/
 2. Escanea las redes y elige tu SSID. Introduce su contraseña.
 3. Si quieres IP fija, activa el interruptor y rellena IP, puerta de enlace, máscara y DNS.
 4. Pulsa **Guardar y conectar**: guarda WiFi e IP fija/DHCP juntos.
-5. La pantalla muestra la IP al conectar. Abre `http://IP_DEL_ESP/`.
+5. La pantalla muestra la IP al conectar. Abre `http://IP_DEL_ESP/`. En redes con mDNS también puedes usar `http://pixel-mb-xxxxxx.local/`; el sufijo es el mismo identificador derivado de la MAC que aparece en el hotspot (por ejemplo, `pixel-mb-32a7b0.local`). Así cada placa tiene un nombre diferente.
 
 El botón **Aplicar IP fija / Aplicar DHCP** cambia solo el direccionamiento y conserva la red y su contraseña. Para cambiar la IP con el mismo SSID no hace falta reescribir la contraseña. El hotspot permanece disponible durante el cambio de red y los reintentos. La hora está configurada para España peninsular; modifica `TIMEZONE` para otra zona.
 
-## Sensor y botones
+![Interfaz real del ESP32: WiFi y estado de la placa](docs/images/esp32-interface.png)
+
+## Sensor
 
 Conecta BMP280 o BME280 en GPIO21/22. El firmware identifica el modelo automáticamente. No son necesarios para utilizar la pantalla; las páginas de sensor no disponible se omiten.
 
@@ -83,7 +80,6 @@ Conecta BMP280 o BME280 en GPIO21/22. El firmware identifica el modelo automáti
 
 Para mostrar humedad, añade una pantalla **Texto** con `Humedad: {bmpHumidity}%`. Con BMP280 la humedad es `--`. El objeto `bmp280` de `/api/sensors` conserva su nombre por compatibilidad y añade `model` y `humidityPercent`.
 
-Los pulsadores se conectan entre su GPIO y GND; se usan pull-ups internos. Puedes desactivarlos con `BUTTONS_ENABLED=false`. Izquierdo/derecho vuelven a la rotación y cambian de pantalla; central alterna brillo cero y el último brillo activo.
 
 ## Animaciones y API
 
@@ -120,8 +116,26 @@ node tests/test_network_editor.js
 node tests/test_saved_previews.js
 node tests/test_random_autosave.js
 node tests/test_board_status.js
-g++ -std=c++17 -Iinclude tests/test_buttons.cpp -o /tmp/pixel-buttons
-/tmp/pixel-buttons
 ```
 
-La compilación y la carga USB se verifican con ESP32-WROOM. Las pruebas de sensores y botones incluyen simuladores; comprueba el cableado y los componentes físicos de tu montaje.
+La compilación y la carga USB se verifican con ESP32-WROOM. Las pruebas de sensores incluyen simuladores; comprueba el cableado y los componentes físicos de tu montaje.
+
+### Animaciones de la instalación inicial
+
+El firmware incluye 42 animaciones copiadas de la colección del ESP8266. Se descomprimen en LittleFS en la primera instalación, sin cargar archivos por separado. La rotación conserva los valores propios del ESP32. Las actualizaciones no reinstalan la colección ni sobrescriben las animaciones del usuario.
+
+### Firmware y copias desde la web
+
+En «Firmware y copias de seguridad», abre el actualizador y carga `firmware.bin` de la plataforma correspondiente. Por defecto, el actualizador web no pide usuario ni contraseña. Mientras la protección esté desactivada, cualquier equipo con acceso a la web de la placa puede actualizarla. La actualización conserva WiFi, configuración y animaciones.
+
+«Descargar copia de seguridad» genera un JSON con las animaciones (AWX en base64 y CRC32), la rotación, las variables, el brillo y la escena base. No contiene WiFi, contraseñas ni una imagen del firmware. Puede restaurarse en ESP8266 o ESP32: reemplaza ajustes y animaciones con el mismo nombre y conserva otras animaciones. No es una restauración atómica: si se interrumpe, se informa del error y puede reintentarse. El navegador valida la copia antes de escribir y verifica cada animación enviada.
+
+`POST /api/variables?replace=true` sustituye las variables de usuario en lugar de combinarlas con las existentes; conserva la validación habitual.
+
+El actualizador HTTP `/update` permite cargar el `.bin` sin usuario ni contraseña. La contraseña del archivo privado `ota.local.json` se conserva únicamente para la OTA clásica de Arduino, no para el actualizador web.
+
+### Protección web opcional
+
+En «Acceso a la web» puedes activar un usuario y una contraseña para toda la interfaz, API y actualizador. **Deshabilitada por defecto**: mientras esté apagada puedes cargar el `.bin` directamente. Se usa autenticación HTTP Digest y los ajustes se guardan en la placa. La contraseña no se devuelve por API ni se incluye en las copias. Si la olvidas, debes borrar la configuración por USB. `GET/POST /api/web-access` consulta o cambia `enabled`, `username` y `password`; dejar la contraseña vacía conserva la anterior. Una vez activada, las llamadas API también requieren autenticación Digest. La OTA clásica conserva su clave independiente.
+
+Si activas la protección web y quieres usar el cargador HTTP de PlatformIO, añade `webUsername` y `webPassword` al archivo privado `ota.local.json`. Sin protección web no hacen falta estos campos.
